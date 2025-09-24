@@ -1,69 +1,210 @@
-<script>
-  const tabs = document.querySelectorAll(".tab-button");
-  const contents = document.querySelectorAll(".tab-content");
-
-  tabs.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-tab");
-
-      tabs.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      contents.forEach(c => {
-        c.classList.remove("active");
-        if (c.id === target) c.classList.add("active");
-      });
-    });
-  });
-
-  const langEn = document.getElementById("lang-en");
-  const langDe = document.getElementById("lang-de");
-  const aboutText = document.getElementById("about-text");
-  const getInvolvedText = document.getElementById("getinvolved-text");
-
-  const translations = {
-    en: {
-      about: `<b>WHO WE ARE</b><br><br>
-We are everyday people who believe in peace and safety for everyone, children above all.<br><br>
-We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and the killing of children must end.`,
-      getinvolved: `As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day." More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.<br><br>
-<b>HOW YOU CAN HELP</b><br>
-- Contact your representatives and demand immediate ceasefire<br>
-- Spread awareness about the humanitarian crisis<br>
-- Advocate for children's rights and protection<br><br>
-<div class="share-links">
-  Share this page:
-  <a href="https://twitter.com/intent/tweet?text=Break+the+Siege,+Save+Children&url=https://yourwebsite.com" target="_blank">Twitter</a>
-  <a href="https://www.instagram.com" target="_blank">Instagram</a>
-  <a href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!')">Copy Link</a>
-</div>`
-    },
-    de: {
-      about: `<b>WER WIR SIND</b><br><br>
-Wir sind ganz normale Menschen, die an Frieden und Sicherheit für alle glauben, vor allem für Kinder.<br><br>
-Wir sind unabhängig, international und mit keiner Regierung oder politischen Partei verbunden. Unser Ziel ist Frieden und Schutz des menschlichen Lebens. Die Belagerung und das Töten von Kindern muss beendet werden.`,
-      getinvolved: `Als Folge des Gaza-Krieges sind Kinder im Gazastreifen unverhältnismäßig stark betroffen, wo 40 % der Bevölkerung 14 Jahre oder jünger sind. Mehr als 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär Antonio Guterres warnte, dass "Gaza zu einem Friedhof für Kinder wird. Hunderte von Mädchen und Jungen werden Berichten zufolge jeden Tag getötet oder verletzt". Mehr als 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass die Zahl der in Gaza getöteten Kinder im vergangenen Jahr die höchste für jeden Konflikt weltweit in den letzten 20 Jahren war.<br><br>
-<b>WIE SIE HELFEN KÖNNEN</b><br>
-- Kontaktieren Sie Ihre Vertreter und fordern Sie sofortigen Waffenstillstand<br>
-- Verbreiten Sie Informationen über die humanitäre Krise<br>
-- Setzen Sie sich für Kinderrechte und -schutz ein<br><br>
-<div class="share-links">
-  Diese Seite teilen:
-  <a href="https://twitter.com/intent/tweet?text=Break+the+Siege,+Save+Children&url=https://yourwebsite.com" target="_blank">Twitter</a>
-  <a href="https://www.instagram.com" target="_blank">Instagram</a>
-  <a href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('Link kopiert!')">Link kopieren</a>
-</div>`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Break the Siege, Save Lives</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #e0f7f9;
+      color: #333;
     }
-  };
 
-  function switchLanguage(lang) {
-    aboutText.innerHTML = translations[lang].about;
-    getInvolvedText.innerHTML = translations[lang].getinvolved;
+    header {
+      background-color: #40e0d0; /* Turquoise */
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
 
-    langEn.classList.toggle("active", lang === "en");
-    langDe.classList.toggle("active", lang === "de");
-  }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #f76c3c; /* Orange */
+      padding: 0.5em;
+    }
 
-  langEn.addEventListener("click", () => switchLanguage("en"));
-  langDe.addEventListener("click", () => switchLanguage("de"));
-</script>
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1em;
+      margin: 0 1em;
+      cursor: pointer;
+    }
+
+    .language-toggle {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+
+    .language-toggle button {
+      background-color: white;
+      border: 1px solid #40e0d0;
+      margin-left: 0.5em;
+      padding: 0.2em 0.6em;
+      cursor: pointer;
+      color: #40e0d0;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 2em;
+    }
+
+    .tab-content.active {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tab-image {
+      max-width: 300px;
+      width: 100%;
+      margin-right: 2em;
+      margin-bottom: 1em;
+    }
+
+    .tab-text {
+      flex: 1;
+      min-width: 280px;
+      text-align: justify;
+    }
+
+    h2 {
+      font-weight: bold;
+    }
+
+    .subsection {
+      margin-top: 2em;
+    }
+
+    .subsection h3 {
+      font-weight: bold;
+    }
+
+    .social-links {
+      margin-top: 1em;
+    }
+
+    .social-links a {
+      margin-right: 1em;
+      text-decoration: none;
+      color: #f76c3c;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .tab-content {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .tab-image {
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Break the Siege, Save Lives</h1>
+    <div class="language-toggle">
+      <button onclick="setLanguage('en')">ENGLISH</button>
+      <button onclick="setLanguage('de')">DEUTSCH</button>
+    </div>
+  </header>
+
+  <nav>
+    <button onclick="showTab('about')">ABOUT</button>
+    <button onclick="showTab('getinvolved')">GET INVOLVED</button>
+  </nav>
+
+  <!-- ABOUT TAB -->
+  <div id="about" class="tab-content active">
+    <img class="tab-image" src="about-image.jpg" alt="About Image">
+    <div class="tab-text" id="about-text">
+      <h2>WHO WE ARE</h2>
+      <p>
+        We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party.
+        Our aim is peace and protection of human lives.
+        The siege and childslaughter must end.
+      </p>
+    </div>
+  </div>
+
+  <!-- GET INVOLVED TAB -->
+  <div id="getinvolved" class="tab-content">
+    <img class="tab-image" src="getinvolved-image.jpg" alt="Get Involved Image">
+    <div class="tab-text" id="getinvolved-text">
+      <p>
+        As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day". More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.
+      </p>
+      <div class="subsection">
+        <h3>HOW YOU CAN HELP</h3>
+        <p>
+          - Contact your representatives and demand immediate ceasefire<br>
+          - Spread awareness about the humanitarian crisis<br>
+          - Advocate for children's rights and protection
+        </p>
+
+        <div class="social-links">
+          <a href="https://twitter.com/intent/tweet?text=Break%20the%20Siege%2C%20Save%20Lives%20%23Gaza" target="_blank">Share on Twitter</a>
+          <a href="https://www.instagram.com" target="_blank">Share on Instagram</a>
+          <a href="#">More...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        about: {
+          title: "WHO WE ARE",
+          text: `We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party.
+          Our aim is peace and protection of human lives.
+          The siege and childslaughter must end.`
+        },
+        getinvolved: {
+          text: `As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day". More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.`,
+          helpTitle: "HOW YOU CAN HELP",
+          helpPoints: `- Contact your representatives and demand immediate ceasefire<br>
+          - Spread awareness about the humanitarian crisis<br>
+          - Advocate for children's rights and protection`
+        }
+      },
+      de: {
+        about: {
+          title: "WER WIR SIND",
+          text: `Wir sind gewöhnliche Menschen, die an Frieden und Sicherheit für alle glauben, vor allem für Kinder. Wir sind unabhängig, international und keiner Regierung oder politischen Partei zugehörig.
+          Unser Ziel ist Frieden und der Schutz menschlichen Lebens.
+          Die Belagerung und das Töten von Kindern müssen aufhören.`
+        },
+        getinvolved: {
+          text: `Infolge des Krieges in Gaza sind Kinder im Gazastreifen überproportional betroffen, wo 40 % der Bevölkerung unter 14 Jahre alt sind. Über 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär António Guterres warnte, dass "Gaza zu einem Friedhof für Kinder wird. Hunderte Mädchen und Jungen sollen täglich getötet oder verletzt werden". Über 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass die Zahl der im letzten Jahr in Gaza getöteten Kinder die höchste in einem einzigen Jahr für jeden Konflikt weltweit in den letzten 20 Jahren war.`,
+          helpTitle: "WIE SIE HELFEN KÖNNEN",
+          helpPoints: `- Kontaktieren Sie Ihre Abgeordneten und fordern Sie einen sofortigen Waffenstillstand<br>
+          - Verbreiten Sie Informationen über die humanitäre Krise<br>
+          - Setzen Sie sich für Kinderrechte und Schutz ein`
+        }
+      }
+    };
+
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.getElementById(tabName).classList.add('active');
+    }
+
+    function setLanguage(lang) {
+      const aboutText = document.getElementById('about-text');
+      const getInvolvedText = document.getElementById('getinvolved-text');
+
+      aboutText.innerHTML = `
+        <h
