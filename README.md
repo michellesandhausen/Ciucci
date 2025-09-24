@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -208,66 +209,203 @@
         .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .facebook { background: #4267b2; }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
+        /* Tablet Responsiveness */
+        @media (max-width: 1024px) {
             .container {
                 padding: 15px;
-            }
-
-            h1 {
-                font-size: 2.2em;
-            }
-
-            .content-section {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .content-image {
-                flex: none;
-                max-width: 100%;
-                order: -1;
-            }
-
-            .content-text {
-                text-align: left;
-            }
-
-            .tab-buttons {
-                flex-direction: column;
-            }
-
-            .tab-btn {
-                padding: 12px 20px;
-                font-size: 1.1em;
-            }
-
-            .language-btn {
-                padding: 8px 16px;
-                margin: 5px;
-            }
-
-            .share-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .content-text p, .content-text li {
-                font-size: 1em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
             }
 
             .content-section {
                 gap: 20px;
             }
 
+            .content-image {
+                flex: 0 0 250px;
+                max-width: 250px;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                margin: 0;
+            }
+
+            header {
+                padding: 20px 0;
+            }
+
+            h1 {
+                font-size: 1.8em;
+                line-height: 1.2;
+                margin-bottom: 15px;
+            }
+
+            .language-selector {
+                margin: 15px 0;
+            }
+
+            .language-btn {
+                padding: 8px 15px;
+                margin: 0 5px;
+                font-size: 0.9em;
+            }
+
+            .tab-buttons {
+                flex-direction: row;
+                justify-content: space-around;
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 1em;
+                flex: 1;
+                margin: 0 5px;
+            }
+
+            .content-section {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .content-image {
+                flex: none;
+                max-width: 100%;
+                width: 100%;
+                order: 0;
+                align-self: center;
+            }
+
+            .content-image img {
+                max-width: 300px;
+                width: 100%;
+                height: auto;
+                margin: 0 auto;
+                display: block;
+            }
+
+            .content-text {
+                text-align: left;
+                width: 100%;
+            }
+
             .content-text h2 {
+                font-size: 1.4em;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .content-text p {
+                font-size: 0.95em;
+                line-height: 1.6;
+                margin-bottom: 15px;
+                text-align: justify;
+            }
+
+            .content-text ul {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
+
+            .content-text li {
+                font-size: 0.95em;
+                line-height: 1.5;
+                margin-bottom: 8px;
+                text-align: justify;
+            }
+
+            .share-section {
+                margin-top: 20px;
+                padding: 20px 15px;
+            }
+
+            .share-section h3 {
+                font-size: 1.2em;
+                margin-bottom: 15px;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .share-btn {
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 0.9em;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Small Mobile Phones */
+        @media (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+
+            h1 {
                 font-size: 1.5em;
+            }
+
+            .language-btn {
+                padding: 6px 12px;
+                font-size: 0.8em;
+                margin: 0 3px;
+            }
+
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.9em;
+            }
+
+            .content-text h2 {
+                font-size: 1.2em;
+            }
+
+            .content-text p, .content-text li {
+                font-size: 0.9em;
+                line-height: 1.5;
+            }
+
+            .share-section {
+                padding: 15px 10px;
+            }
+
+            .share-buttons {
+                gap: 8px;
+            }
+
+            .share-btn {
+                padding: 10px 15px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Very Small Screens */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .content-text p, .content-text li {
+                font-size: 0.85em;
+            }
+
+            .language-btn {
+                padding: 5px 10px;
+                font-size: 0.75em;
+            }
+
+            .tab-btn {
+                padding: 6px 8px;
+                font-size: 0.8em;
             }
         }
 
