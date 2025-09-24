@@ -1,6 +1,3 @@
-# Ciucci
-Landpage for Break the Siege
-![Uploading about-image.jpg…]()
 <!DOCTYPE html>
 <html lang="en">
 <head>
