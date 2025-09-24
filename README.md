@@ -1,210 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Break the Siege, Save Lives</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #e0f7f9;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break the Siege, Save Lives</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background-color: #40e0d0; /* Turquoise */
-      color: white;
-      padding: 1em;
-      text-align: center;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #20b2aa, #40e0d0);
+            min-height: 100vh;
+        }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #f76c3c; /* Orange */
-      padding: 0.5em;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+        }
 
-    nav button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1em;
-      margin: 0 1em;
-      cursor: pointer;
-    }
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #ff6b35;
+        }
 
-    .language-toggle {
-      position: absolute;
-      top: 1em;
-      right: 1em;
-    }
+        h1 {
+            font-size: 2.8em;
+            color: #20b2aa;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .language-toggle button {
-      background-color: white;
-      border: 1px solid #40e0d0;
-      margin-left: 0.5em;
-      padding: 0.2em 0.6em;
-      cursor: pointer;
-      color: #40e0d0;
-    }
+        .language-selector {
+            margin: 20px 0;
+            text-align: center;
+        }
 
-    .tab-content {
-      display: none;
-      padding: 2em;
-    }
+        .language-btn {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
 
-    .tab-content.active {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        .language-btn:hover {
+            background: #e5592f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
 
-    .tab-image {
-      max-width: 300px;
-      width: 100%;
-      margin-right: 2em;
-      margin-bottom: 1em;
-    }
+        .language-btn.active {
+            background: #20b2aa;
+            box-shadow: 0 4px 15px rgba(32, 178, 170, 0.3);
+        }
 
-    .tab-text {
-      flex: 1;
-      min-width: 280px;
-      text-align: justify;
-    }
+        .tab-container {
+            margin: 40px 0;
+        }
 
-    h2 {
-      font-weight: bold;
-    }
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #20b2aa;
+        }
 
-    .subsection {
-      margin-top: 2em;
-    }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
 
-    .subsection h3 {
-      font-weight: bold;
-    }
+        .tab-btn:hover {
+            color: #20b2aa;
+            background: rgba(32, 178, 170, 0.1);
+        }
 
-    .social-links {
-      margin-top: 1em;
-    }
+        .tab-btn.active {
+            color: #20b2aa;
+            border-bottom-color: #ff6b35;
+            background: rgba(32, 178, 170, 0.1);
+        }
 
-    .social-links a {
-      margin-right: 1em;
-      text-decoration: none;
-      color: #f76c3c;
-      font-weight: bold;
-    }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
 
-    @media (max-width: 768px) {
-      .tab-content {
-        flex-direction: column;
-        align-items: center;
-      }
+        .tab-content.active {
+            display: block;
+        }
 
-      .tab-image {
-        margin-right: 0;
-      }
-    }
-  </style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .content-image {
+            flex: 0 0 300px;
+            max-width: 300px;
+        }
+
+        .content-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .content-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-text h2 {
+            color: #20b2aa;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-text p {
+            text-align: justify;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .content-text ul {
+            text-align: justify;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-text li {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .share-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(32, 178, 170, 0.1), rgba(255, 107, 53, 0.1));
+            border-radius: 15px;
+            border: 2px solid #20b2aa;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .twitter { background: #1da1f2; }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .facebook { background: #4267b2; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .content-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content-image {
+                flex: none;
+                max-width: 100%;
+                order: -1;
+            }
+
+            .content-text {
+                text-align: left;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 1.1em;
+            }
+
+            .language-btn {
+                padding: 8px 16px;
+                margin: 5px;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .content-text p, .content-text li {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .content-section {
+                gap: 20px;
+            }
+
+            .content-text h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Break the Siege, Save Lives</h1>
-    <div class="language-toggle">
-      <button onclick="setLanguage('en')">ENGLISH</button>
-      <button onclick="setLanguage('de')">DEUTSCH</button>
-    </div>
-  </header>
+    <div class="container">
+        <header>
+            <h1 id="main-title">Break the Siege, Save Lives</h1>
+            <div class="language-selector">
+                <button class="language-btn active" onclick="switchLanguage('en')">ENGLISH</button>
+                <button class="language-btn" onclick="switchLanguage('de')">DEUTSCH</button>
+            </div>
+        </header>
 
-  <nav>
-    <button onclick="showTab('about')">ABOUT</button>
-    <button onclick="showTab('getinvolved')">GET INVOLVED</button>
-  </nav>
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('about')" id="about-tab">ABOUT</button>
+                <button class="tab-btn" onclick="showTab('involved')" id="involved-tab">GET INVOLVED</button>
+            </div>
 
-  <!-- ABOUT TAB -->
-  <div id="about" class="tab-content active">
-    <img class="tab-image" src="about-image.jpg" alt="About Image">
-    <div class="tab-text" id="about-text">
-      <h2>WHO WE ARE</h2>
-      <p>
-        We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party.
-        Our aim is peace and protection of human lives.
-        The siege and childslaughter must end.
-      </p>
-    </div>
-  </div>
+            <div id="about-content" class="tab-content active">
+                <div class="content-section">
+                    <div class="content-image">
+                        <img src="about-image.jpg" alt="About Us Image">
+                    </div>
+                    <div class="content-text">
+                        <h2 id="about-title">WHO WE ARE</h2>
+                        <p id="about-text">We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and childslaughter must end.</p>
+                    </div>
+                </div>
+            </div>
 
-  <!-- GET INVOLVED TAB -->
-  <div id="getinvolved" class="tab-content">
-    <img class="tab-image" src="getinvolved-image.jpg" alt="Get Involved Image">
-    <div class="tab-text" id="getinvolved-text">
-      <p>
-        As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day". More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.
-      </p>
-      <div class="subsection">
-        <h3>HOW YOU CAN HELP</h3>
-        <p>
-          - Contact your representatives and demand immediate ceasefire<br>
-          - Spread awareness about the humanitarian crisis<br>
-          - Advocate for children's rights and protection
-        </p>
-
-        <div class="social-links">
-          <a href="https://twitter.com/intent/tweet?text=Break%20the%20Siege%2C%20Save%20Lives%20%23Gaza" target="_blank">Share on Twitter</a>
-          <a href="https://www.instagram.com" target="_blank">Share on Instagram</a>
-          <a href="#">More...</a>
+            <div id="involved-content" class="tab-content">
+                <div class="content-section">
+                    <div class="content-image">
+                        <img src="getinvolved-image.jpg" alt="Get Involved Image">
+                    </div>
+                    <div class="content-text">
+                        <p id="involved-description">As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that 'Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day'. More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.</p>
+                        
+                        <h2 id="help-title">HOW YOU CAN HELP</h2>
+                        <ul id="help-list">
+                            <li>Contact your representatives and demand immediate ceasefire</li>
+                            <li>Spread awareness about the humanitarian crisis</li>
+                            <li>Advocate for children's rights and protection</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="share-section">
+                    <h3 id="share-title">Share Our Message</h3>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn twitter" onclick="shareOnTwitter()">Share on Twitter</a>
+                        <a href="#" class="share-btn instagram" onclick="shareOnInstagram()">Share on Instagram</a>
+                        <a href="#" class="share-btn facebook" onclick="shareOnFacebook()">Share on Facebook</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <script>
-    const translations = {
-      en: {
-        about: {
-          title: "WHO WE ARE",
-          text: `We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party.
-          Our aim is peace and protection of human lives.
-          The siege and childslaughter must end.`
-        },
-        getinvolved: {
-          text: `As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day". More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.`,
-          helpTitle: "HOW YOU CAN HELP",
-          helpPoints: `- Contact your representatives and demand immediate ceasefire<br>
-          - Spread awareness about the humanitarian crisis<br>
-          - Advocate for children's rights and protection`
+    <script>
+        const translations = {
+            en: {
+                'main-title': 'Break the Siege, Save Lives',
+                'about-tab': 'ABOUT',
+                'involved-tab': 'GET INVOLVED',
+                'about-title': 'WHO WE ARE',
+                'about-text': 'We are everyday people who believe in peace and safety for everyone, children above all. We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and childslaughter must end.',
+                'involved-description': 'As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that \'Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day\'. More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.',
+                'help-title': 'HOW YOU CAN HELP',
+                'help-list': '<li>Contact your representatives and demand immediate ceasefire</li><li>Spread awareness about the humanitarian crisis</li><li>Advocate for children\'s rights and protection</li>',
+                'share-title': 'Share Our Message'
+            },
+            de: {
+                'main-title': 'Durchbrecht die Belagerung, Rettet Leben',
+                'about-tab': 'ÜBER UNS',
+                'involved-tab': 'MITMACHEN',
+                'about-title': 'WER WIR SIND',
+                'about-text': 'Wir sind gewöhnliche Menschen, die an Frieden und Sicherheit für alle glauben, vor allem für Kinder. Wir sind unabhängig, international und keiner Regierung oder politischen Partei angeschlossen. Unser Ziel ist Frieden und der Schutz menschlichen Lebens. Die Belagerung und das Kindermorden müssen beendet werden.',
+                'involved-description': 'Infolge des Gaza-Krieges wurden Kinder im Gazastreifen unverhältnismäßig stark beeinträchtigt, wo 40% der Bevölkerung 14 Jahre oder jünger sind. Mehr als 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär Antonio Guterres warnte, dass „Gaza zu einem Friedhof für Kinder wird. Berichten zufolge werden täglich Hunderte von Mädchen und Jungen getötet oder verletzt". Mehr als 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass die Zahl der in Gaza getöteten Kinder im vergangenen Jahr die höchste war, die jemals in einem einzigen Jahr für einen Konflikt weltweit in den letzten 20 Jahren verzeichnet wurde.',
+                'help-title': 'WIE SIE HELFEN KÖNNEN',
+                'help-list': '<li>Kontaktieren Sie Ihre Vertreter und fordern Sie einen sofortigen Waffenstillstand</li><li>Schaffen Sie Bewusstsein für die humanitäre Krise</li><li>Setzen Sie sich für die Rechte und den Schutz von Kindern ein</li>',
+                'share-title': 'Teilen Sie unsere Botschaft'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active language button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all translated elements
+            Object.keys(translations[lang]).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (id === 'help-list') {
+                        element.innerHTML = translations[lang][id];
+                    } else {
+                        element.textContent = translations[lang][id];
+                    }
+                }
+            });
+
+            // Update document language attribute
+            document.documentElement.lang = lang;
         }
-      },
-      de: {
-        about: {
-          title: "WER WIR SIND",
-          text: `Wir sind gewöhnliche Menschen, die an Frieden und Sicherheit für alle glauben, vor allem für Kinder. Wir sind unabhängig, international und keiner Regierung oder politischen Partei zugehörig.
-          Unser Ziel ist Frieden und der Schutz menschlichen Lebens.
-          Die Belagerung und das Töten von Kindern müssen aufhören.`
-        },
-        getinvolved: {
-          text: `Infolge des Krieges in Gaza sind Kinder im Gazastreifen überproportional betroffen, wo 40 % der Bevölkerung unter 14 Jahre alt sind. Über 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär António Guterres warnte, dass "Gaza zu einem Friedhof für Kinder wird. Hunderte Mädchen und Jungen sollen täglich getötet oder verletzt werden". Über 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass die Zahl der im letzten Jahr in Gaza getöteten Kinder die höchste in einem einzigen Jahr für jeden Konflikt weltweit in den letzten 20 Jahren war.`,
-          helpTitle: "WIE SIE HELFEN KÖNNEN",
-          helpPoints: `- Kontaktieren Sie Ihre Abgeordneten und fordern Sie einen sofortigen Waffenstillstand<br>
-          - Verbreiten Sie Informationen über die humanitäre Krise<br>
-          - Setzen Sie sich für Kinderrechte und Schutz ein`
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-content').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
         }
-      }
-    };
 
-    function showTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.getElementById(tabName).classList.add('active');
-    }
+        function shareOnTwitter() {
+            const text = currentLanguage === 'en' 
+                ? 'Break the Siege, Save Lives - Join us in advocating for peace and children\'s rights'
+                : 'Durchbrecht die Belagerung, Rettet Leben - Schließen Sie sich uns an, um für Frieden und Kinderrechte einzutreten';
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
 
-    function setLanguage(lang) {
-      const aboutText = document.getElementById('about-text');
-      const getInvolvedText = document.getElementById('getinvolved-text');
+        function shareOnFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
 
-      aboutText.innerHTML = `
-        <h
+        function shareOnInstagram() {
+            // Instagram doesn't support direct link sharing, so we'll copy to clipboard
+            const text = currentLanguage === 'en' 
+                ? 'Break the Siege, Save Lives - Join us in advocating for peace and children\'s rights. Visit: ' + window.location.href
+                : 'Durchbrecht die Belagerung, Rettet Leben - Schließen Sie sich uns an, um für Frieden und Kinderrechte einzutreten. Besuchen Sie: ' + window.location.href;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert(currentLanguage === 'en' 
+                    ? 'Link copied to clipboard! You can now paste it in your Instagram story or bio.'
+                    : 'Link in die Zwischenablage kopiert! Sie können ihn jetzt in Ihrer Instagram-Story oder Bio einfügen.');
+            });
+        }
+    </script>
+</body>
+</html>
