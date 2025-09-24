@@ -4,7 +4,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Break the Siege, Save Lives</title>
   <style>
-    /* --- Base Styles --- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -32,16 +31,17 @@
       gap: 15px;
     }
 
-    .language-toggle img {
-      width: 32px;
-      height: 21px;
+    .language-toggle span {
       cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 4px;
       border: 2px solid transparent;
-      border-radius: 3px;
+      font-weight: bold;
     }
 
-    .language-toggle img.active {
-      border-color: #ffdd00;
+    .language-toggle span.active {
+      border-color: #0077b6;
+      background-color: #dff6fd;
     }
 
     nav {
@@ -97,7 +97,23 @@
       min-width: 250px;
       line-height: 1.6;
       font-size: 1rem;
-      white-space: pre-wrap;
+      text-align: justify;
+    }
+
+    .tab-text b {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .share-links {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .share-links a {
+      margin-right: 10px;
+      text-decoration: none;
+      color: #0077b6;
     }
 
     @media (max-width: 768px) {
@@ -121,8 +137,8 @@
   <header>Break the Siege, Save Lives</header>
 
   <div class="language-toggle">
-    <img src="https://flagcdn.com/us.svg" alt="English" id="lang-en" class="active">
-    <img src="https://flagcdn.com/de.svg" alt="Deutsch" id="lang-de">
+    <span id="lang-en" class="active">ENGLISH</span>
+    <span id="lang-de">DEUTSCH</span>
   </div>
 
   <nav>
@@ -134,7 +150,7 @@
     <div id="about" class="tab-content active">
       <img src="about-image.jpg" alt="About">
       <div class="tab-text" id="about-text">
-        WHO WE ARE  
+        <b>WHO WE ARE</b>
         We are everyday people who believe in peace and safety for everyone, children above all.
 
         We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and the killing of children must end.
@@ -144,7 +160,19 @@
     <div id="getinvolved" class="tab-content">
       <img src="getinvolved-image.jpg" alt="Get Involved">
       <div class="tab-text" id="getinvolved-text">
-        As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that 'Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day'. More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.
+        As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day." More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.
+
+        <b>HOW YOU CAN HELP</b>
+        - Contact your representatives and demand immediate ceasefire  
+        - Spread awareness about the humanitarian crisis  
+        - Advocate for children's rights and protection
+
+        <div class="share-links">
+          Share this page:
+          <a href="https://twitter.com/intent/tweet?text=Break+the+Siege,+Save+Children&url=https://yourwebsite.com" target="_blank">Twitter</a>
+          <a href="https://www.instagram.com" target="_blank">Instagram</a>
+          <a href="#" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied to clipboard!')">Copy Link</a>
+        </div>
       </div>
     </div>
   </main>
@@ -174,32 +202,20 @@
 
     const translations = {
       en: {
-        about: `WHO WE ARE  
+        about: `<b>WHO WE ARE</b>
 We are everyday people who believe in peace and safety for everyone, children above all.
 
-We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and childslaughter must end.`,
-        getinvolved: `As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that 'Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day'. More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.`
+We are independent, international, and unaffiliated with any government or political party. Our aim is peace and protection of human lives. The siege and the killing of children must end.`,
+        getinvolved: `As a result of the Gaza war, children have been disproportionately impacted in the Gaza Strip, where 40% of the population is 14 or under. More than 700,000 children in Gaza were displaced. UN Secretary General Antonio Guterres warned that "Gaza is becoming a graveyard for children. Hundreds of girls and boys are reportedly being killed or injured every day." More than 50,000 children had been killed or injured in Gaza. In late September 2024, Oxfam and Action on Armed Violence reported that the number of children killed in Gaza over the past year was the highest recorded in a single year for any conflict worldwide in the last 20 years.
+
+<b>HOW YOU CAN HELP</b>
+- Contact your representatives and demand immediate ceasefire  
+- Spread awareness about the humanitarian crisis  
+- Advocate for children's rights and protection`
       },
       de: {
-        about: `WER WIR SIND  
+        about: `<b>WER WIR SIND</b>
 Wir sind ganz normale Menschen, die an Frieden und Sicherheit für alle glauben, vor allem für Kinder.
 
 Wir sind unabhängig, international und mit keiner Regierung oder politischen Partei verbunden. Unser Ziel ist Frieden und Schutz des menschlichen Lebens. Die Belagerung und das Töten von Kindern muss beendet werden.`,
-        getinvolved: `Als Folge des Gaza-Krieges sind Kinder im Gazastreifen unverhältnismäßig stark betroffen, wo 40 % der Bevölkerung 14 Jahre oder jünger sind. Mehr als 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär Antonio Guterres warnte, dass 'Gaza zu einem Friedhof für Kinder wird. Hunderte von Mädchen und Jungen werden Berichten zufolge jeden Tag getötet oder verletzt'. Mehr als 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass die Zahl der in Gaza getöteten Kinder im vergangenen Jahr die höchste für jeden Konflikt weltweit in den letzten 20 Jahren war.`
-      }
-    };
-
-    function switchLanguage(lang) {
-      aboutText.textContent = translations[lang].about;
-      getInvolvedText.textContent = translations[lang].getinvolved;
-
-      langEn.classList.toggle("active", lang === "en");
-      langDe.classList.toggle("active", lang === "de");
-    }
-
-    langEn.addEventListener("click", () => switchLanguage("en"));
-    langDe.addEventListener("click", () => switchLanguage("de"));
-  </script>
-
-</body>
-</html>
+        getinvolved: `Als Folge des Gaza-Krieges sind Kinder im Gazastreifen unverhältnismäßig stark betroffen, wo 40 % der Bevölkerung 14 Jahre oder jünger sind. Mehr als 700.000 Kinder in Gaza wurden vertrieben. UN-Generalsekretär Antonio Guterres warnte, dass "Gaza zu einem Friedhof für Kinder wird. Hunderte von Mädchen und Jungen werden Berichten zufolge jeden Tag getötet oder verletzt". Mehr als 50.000 Kinder wurden in Gaza getötet oder verletzt. Ende September 2024 berichteten Oxfam und Action on Armed Violence, dass…the number of children killed in Gaza im vergangenen Jahr die höchste für jeden Konflikt weltweit in den letzten 20 Jahren war.**
